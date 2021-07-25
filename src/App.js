@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
+import { decrement, increment } from './redux/ducks/counter';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const count = useSelector((state) => state.counter.count);
+	const dispatch = useDispatch();
+
+	const parentStyle = {};
+
+	const buttons = {
+		display: 'flex',
+	};
+
+	const inc = () => {
+		dispatch(increment());
+	};
+
+	const dec = () => {
+		dispatch(decrement());
+	};
+
+	return (
+		<>
+			<h2>{count}</h2>
+			<div style={parentStyle}>
+				<div style={buttons}>
+					<button onClick={inc}>Increment</button>
+					<button onClick={dec}>Decrement</button>
+				</div>
+			</div>
+		</>
+	);
 }
 
 export default App;
